@@ -6,7 +6,6 @@ import QuantityStepper from './QuantityStepper.jsx';
 import image11 from '../assets/11-1.jpg';
 import imageAbout1 from '../assets/about1.jpg';
 import imageAbout2 from '../assets/about2.jpg';
-import imageHome2 from '../assets/home2.jpg';
 
 const features = [
   {
@@ -40,7 +39,6 @@ const productImages = [
   { src: image11, name: '11-1', alt: 'Main product view of The Lilbo Peepsite' },
   { src: imageAbout1, name: 'about1', alt: 'The Lilbo Peepsite installed on a bowstring' },
   { src: imageAbout2, name: 'about2', alt: 'Close-up of The Lilbo Peepsite on the string' },
-  { src: imageHome2, name: 'home2', alt: 'Bow view with The Lilbo Peepsite in focus' },
 ];
 
 function ProductSection({ showIntro = false, id }) {

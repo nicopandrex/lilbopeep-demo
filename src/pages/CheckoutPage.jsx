@@ -1,40 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useCart } from '../context/useCart.jsx';
 import CheckoutForm from '../components/CheckoutForm.jsx';
 import OrderSummary from '../components/OrderSummary.jsx';
-import { buildStripeCheckoutUrl } from '../utils/stripe.js';
 
 function CheckoutPage() {
   const { cart } = useCart();
   const [stage, setStage] = useState('form');
-  const [checkoutUrl, setCheckoutUrl] = useState('');
-  const [order, setOrder] = useState(null);
-
-  const orderPreview = useMemo(
-    () => ({
-      product: {
-        name: 'The Lilbo Peepsite',
-        price: 54.95,
-        handedness: cart.handedness,
-        quantity: cart.quantity,
-      },
-      shipping: 'Shipping calculated at checkout (no free shipping).',
-    }),
-    [cart.handedness, cart.quantity],
-  );
 
   const handleSubmit = (nextOrder) => {
-    const fullOrder = {
-      ...nextOrder,
-      meta: {
-        shippingStatus: 'calculated at checkout',
-      },
-    };
-
-    const url = buildStripeCheckoutUrl(fullOrder);
-    console.log('Checkout order payload:', fullOrder);
-    setOrder(fullOrder);
-    setCheckoutUrl(url);
+    console.log('Checkout order payload:', nextOrder);
     setStage('payment');
   };
 
@@ -58,13 +32,8 @@ function CheckoutPage() {
           </div>
         ) : (
           <div className="payment-placeholder reveal">
-            <h2>Stripe Checkout will open here once integrated.</h2>
-            <p>
-              Placeholder URL from <code>buildStripeCheckoutUrl(order)</code>:
-            </p>
-            <pre>{checkoutUrl}</pre>
-            <p>Order payload:</p>
-            <pre>{JSON.stringify(order ?? orderPreview, null, 2)}</pre>
+            <h2>Secure Checkout with Stripe Coming soon.</h2>
+            <p>Thanks for submitting your shipping information.</p>
             <button type="button" className="btn btn-secondary" onClick={() => setStage('form')}>
               Back to Checkout Form
             </button>
