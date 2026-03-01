@@ -1,10 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/useCart.jsx';
 import HandednessSelector from './HandednessSelector.jsx';
-import image11 from '../assets/11-1.jpg';
-import imageAbout1 from '../assets/about1.jpg';
-import imageAbout2 from '../assets/about2.jpg';
+import StockNotificationForm from './StockNotificationForm.jsx';
+import peep1003 from '../assets/Peep Final/Peep-1003.jpg';
+import peep1004 from '../assets/Peep Final/Peep-1004.jpg';
+import peep1005 from '../assets/Peep Final/Peep-1005.jpg';
+import peep1006 from '../assets/Peep Final/Peep-1006.jpg';
+import peep1007 from '../assets/Peep Final/Peep-1007.jpg';
+import peep1008 from '../assets/Peep Final/Peep-1008.jpg';
+import peep1009 from '../assets/Peep Final/Peep-1009.jpg';
 
 const features = [
   {
@@ -35,15 +40,73 @@ const features = [
 ];
 
 const productImages = [
-  { src: image11, name: '11-1', alt: 'Main product view of The Lilbo Peepsite' },
-  { src: imageAbout1, name: 'about1', alt: 'The Lilbo Peepsite installed on a bowstring' },
-  { src: imageAbout2, name: 'about2', alt: 'Close-up of The Lilbo Peepsite on the string' },
+  { src: peep1007, name: 'peep-1007', alt: 'The Lilbo Peepsite - alternate angle' },
+  { src: peep1006, name: 'peep-1006', alt: 'The Lilbo Peepsite titanium construction - side view' },
+  { src: peep1003, name: 'peep-1003', alt: 'The Lilbo Peepsite with alignment tool on bowstring' },
+  { src: peep1004, name: 'peep-1004', alt: 'The Lilbo Peepsite alignment tool detail' },
+  { src: peep1005, name: 'peep-1005', alt: 'The Lilbo Peepsite installation view' },
+  { src: peep1008, name: 'peep-1008', alt: 'The Lilbo Peepsite on bowstring - angle view' },
+  { src: peep1009, name: 'peep-1009', alt: 'The Lilbo Peepsite close-up detail' },
 ];
 
 function ProductSection({ showIntro = false, id }) {
   const { cart, setLeftQuantity, setRightQuantity } = useCart();
   const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(productImages[0]);
+  const [showNotificationForm, setShowNotificationForm] = useState(false);
+  const [thumbStartIndex, setThumbStartIndex] = useState(0);
+  const [thumbsPerPage, setThumbsPerPage] = useState(5);
+
+  // Adjust thumbs per page based on screen size
+  useEffect(() => {
+    const updateThumbsPerPage = () => {
+      if (window.innerWidth <= 760) {
+        setThumbsPerPage(3);
+      } else {
+        setThumbsPerPage(5);
+      }
+    };
+
+    updateThumbsPerPage();
+    window.addEventListener('resize', updateThumbsPerPage);
+    return () => window.removeEventListener('resize', updateThumbsPerPage);
+  }, []);
+
+  const totalQuantity = cart.leftQuantity + cart.rightQuantity;
+  const visibleThumbs = productImages.slice(thumbStartIndex, thumbStartIndex + thumbsPerPage);
+  const canScrollLeft = thumbStartIndex > 0;
+  const canScrollRight = thumbStartIndex + thumbsPerPage < productImages.length;
+
+  const scrollThumbsLeft = () => {
+    setThumbStartIndex(prev => Math.max(0, prev - 1));
+  };
+
+  const scrollThumbsRight = () => {
+    setThumbStartIndex(prev => Math.min(productImages.length - thumbsPerPage, prev + 1));
+  };
+
+  const handleNotificationSubmit = async (data) => {
+    // TODO: Replace this with your actual API endpoint
+    const API_ENDPOINT = '/api/stock-notification'; // Update with your API URL
+    
+    console.log('Submitting stock notification signup:', data);
+    
+    // Example API call structure - replace with your actual implementation
+    const response = await fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to sign up for notifications');
+    }
+
+    // Success
+    alert('Successfully signed up for stock notifications!');
+  };
 
   return (
     <section className="section" id={id}>
@@ -64,26 +127,46 @@ function ProductSection({ showIntro = false, id }) {
             <div className="product-main-image">
               <img src={activeImage.src} alt={activeImage.alt} />
             </div>
-            <div className="product-thumbs">
-              {productImages.map((image) => (
-                <button
-                  key={image.name}
-                  type="button"
-                  className={`thumb-button${activeImage.name === image.name ? ' is-active' : ''}`}
-                  onClick={() => setActiveImage(image)}
-                  aria-label={`View ${image.alt}`}
-                  aria-pressed={activeImage.name === image.name}
-                >
-                  <img src={image.src} alt={image.alt} />
-                </button>
-              ))}
+            <div className="product-thumbs-container">
+              <button
+                type="button"
+                className="thumb-nav-button thumb-nav-left"
+                onClick={scrollThumbsLeft}
+                disabled={!canScrollLeft}
+                aria-label="Show previous thumbnails"
+              >
+                &#8249;
+              </button>
+              <div className="product-thumbs">
+                {visibleThumbs.map((image) => (
+                  <button
+                    key={image.name}
+                    type="button"
+                    className={`thumb-button${activeImage.name === image.name ? ' is-active' : ''}`}
+                    onClick={() => setActiveImage(image)}
+                    aria-label={`View ${image.alt}`}
+                    aria-pressed={activeImage.name === image.name}
+                  >
+                    <img src={image.src} alt={image.alt} />
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                className="thumb-nav-button thumb-nav-right"
+                onClick={scrollThumbsRight}
+                disabled={!canScrollRight}
+                aria-label="Show next thumbnails"
+              >
+                &#8250;
+              </button>
             </div>
           </div>
 
           <div className="product-content">
             <h2>The Lilbo Peepsite</h2>
             <p className="price">$54.95</p>
-            <p className="shipping-note">Shipping calculated at checkout (no free shipping).</p>
+            <p className="shipping-note">Shipping cost calculated at checkout</p>
             <h3 className="feature-heading">Why Archers Choose The Lilbo Peepsite</h3>
             <div className="feature-list">
               {features.map((feature) => (
@@ -103,14 +186,34 @@ function ProductSection({ showIntro = false, id }) {
               />
             </div>
 
-            <div className="button-row">
-              <button type="button" className="btn btn-primary" onClick={() => navigate('/checkout')}>
-                Checkout
-              </button>
-              <Link to="/contact" className="btn btn-secondary">
-                Ask a Question
-              </Link>
-            </div>
+            {showNotificationForm ? (
+              <StockNotificationForm
+                isOpen={showNotificationForm}
+                onClose={() => setShowNotificationForm(false)}
+                onSubmit={handleNotificationSubmit}
+              />
+            ) : (
+              <div className="button-stack">
+                <button 
+                  type="button" 
+                  className="btn btn-primary btn-block" 
+                  onClick={() => navigate('/checkout')}
+                  disabled={totalQuantity === 0}
+                >
+                  Preorder Now
+                </button>
+                <button 
+                  type="button" 
+                  className="btn btn-secondary btn-block" 
+                  onClick={() => setShowNotificationForm(true)}
+                >
+                  Get Stock Notifications
+                </button>
+                <Link to="/contact" className="btn btn-secondary btn-block">
+                  Ask a Question
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

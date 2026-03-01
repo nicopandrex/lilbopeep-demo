@@ -1,9 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProductSection from '../components/ProductSection.jsx';
 import HowItWorks from '../components/HowItWorks.jsx';
 import Testimonials from '../components/Testimonials.jsx';
-import heroImage from '../assets/22-1.jpg';
+import hero1 from '../assets/22-1.jpg';
+import hero2 from '../assets/Images/_DP95177.jpg';
+import hero3 from '../assets/Peep Final/Peep-1001.jpg';
+
+const heroImages = [
+  { src: hero1, alt: 'The Lilbo Peepsite installed on a bow' },
+  { src: hero2, alt: 'The Lilbo Peepsite in field use' },
+  { src: hero3, alt: 'The Lilbo Peepsite titanium construction' },
+];
 
 const credibilityItems = [
   {
@@ -27,6 +35,15 @@ const credibilityItems = [
 function HomePage() {
   const navigate = useNavigate();
   const [openCard, setOpenCard] = useState(null);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 8000); // Change image every 8 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   const scrollToProduct = () => {
     const section = document.getElementById('product-section');
@@ -39,7 +56,14 @@ function HomePage() {
     <>
       <section className="section hero">
         <div className="hero-visual reveal">
-          <img src={heroImage} alt="The Lilbo Peepsite installed on a bow" />
+          {heroImages.map((image, index) => (
+            <img
+              key={index}
+              src={image.src}
+              alt={image.alt}
+              className={index === currentHeroIndex ? 'hero-image' : ''}
+            />
+          ))}
           <div className="hero-overlay" />
           <div className="container hero-content">
             <div>

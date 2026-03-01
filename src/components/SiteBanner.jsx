@@ -47,9 +47,10 @@ function SiteBanner() {
   const renderBannerContent = () => (
     <div className="container site-banner__content">
       <p>
-        Due to the substantial hike in the cost of titanium, all orders are on hold
-        until the price goes down, or an alternative is found. All changes will be
-        posted on the website.
+        Due to the substantial hike in the cost of titanium, 
+        all orders are PREORDER only until the price goes down,
+        or an alternative is found. All changes will be posted on the website, 
+        sign up to be notified via email.
       </p>
       <button
         type="button"

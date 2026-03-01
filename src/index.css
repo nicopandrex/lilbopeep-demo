@@ -259,6 +259,205 @@ textarea:focus-visible {
   gap: 0.75rem;
 }
 
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: var(--bg-dark);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 95vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--primary);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-actions {
+  padding: 1.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.preorder-summary {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.preorder-summary h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.125rem;
+}
+
+.preorder-summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.preorder-summary-item:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 1.125rem;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+  border-top: 2px solid var(--line);
+}
+
+/* Stock Notification Form */
+.stock-notification-form {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.stock-notification-form h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.stock-notification-form p {
+  margin: 0 0 1rem 0;
+  color: var(--text-muted);
+  font-size: 0.925rem;
+}
+
+.stock-notification-input-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.stock-notification-input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.stock-notification-input-group input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.stock-notification-input-group button {
+  white-space: nowrap;
+}
+
+.stock-notification-close {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 0.625rem 1.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.stock-notification-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-muted);
+}
+
+.stock-notification-close:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stock-notification-form .form-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.stock-notification-form .success-message {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #81c784;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.stock-notification-form .error-message {
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  color: #e57373;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
 .hero {
   padding-top: 0;
   padding-bottom: clamp(1rem, 2.5vw, 2rem);
@@ -270,6 +469,7 @@ textarea:focus-visible {
   border-radius: 14px;
   overflow: hidden;
   border: 1px solid var(--line);
+  background: #0d120d;
 }
 
 .hero-visual img {
@@ -278,6 +478,12 @@ textarea:focus-visible {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.hero-visual img.hero-image {
+  opacity: 1;
 }
 
 .hero-overlay {
@@ -431,10 +637,44 @@ textarea:focus-visible {
   object-position: center;
 }
 
+.product-thumbs-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.thumb-nav-button {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--primary);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.thumb-nav-button:hover:not(:disabled) {
+  background: rgba(31, 78, 168, 0.1);
+  border-color: var(--primary);
+}
+
+.thumb-nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .product-thumbs {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.75rem;
+  flex: 1;
 }
 
 .thumb-button {
@@ -758,7 +998,8 @@ textarea:focus-visible {
   margin-top: 0;
 }
 
-.checkout-form button[type="submit"] {
+.checkout-form button[type="submit"],
+.contact-form button[type="submit"] {
   margin-top: 1.5rem;
 }
 
@@ -820,6 +1061,38 @@ textarea:focus-visible {
 
 .contact-details p {
   margin: 0.4rem 0;
+}
+
+/* Our Story Page */
+.story-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-section {
+  margin-bottom: 3rem;
+}
+
+.story-section h2 {
+  color: var(--primary);
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.story-section p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  font-size: 1.0625rem;
+}
+
+.story-section p:last-child {
+  margin-bottom: 0;
+}
+
+.story-cta {
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
 }
 
 .site-footer {
@@ -969,6 +1242,12 @@ textarea:focus-visible {
 
   .product-thumbs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .thumb-nav-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
   }
 
   .feature-list {

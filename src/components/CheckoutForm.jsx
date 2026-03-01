@@ -137,7 +137,7 @@ function CheckoutForm({ leftQuantity, rightQuantity, onSubmit, onStateChange }) 
         {field('country', 'Country')}
       </div>
       <button type="submit" className="btn btn-primary">
-        Continue to Payment
+        Complete Preorder
       </button>
     </form>
   );

@@ -9,9 +9,25 @@ function CheckoutPage() {
   const [shippingState, setShippingState] = useState('');
   const totalQuantity = cart.leftQuantity + cart.rightQuantity;
 
-  const handleSubmit = (nextOrder) => {
+  const handleSubmit = async (nextOrder) => {
     console.log('Checkout order payload:', nextOrder);
-    setStage('payment');
+    
+    // TODO: Replace with your actual API endpoint
+    // const API_ENDPOINT = '/api/preorder';
+    // try {
+    //   const response = await fetch(API_ENDPOINT, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(nextOrder),
+    //   });
+    //   if (!response.ok) throw new Error('Failed to submit preorder');
+    // } catch (error) {
+    //   console.error('Error submitting preorder:', error);
+    //   alert('There was an error submitting your preorder. Please try again.');
+    //   return;
+    // }
+    
+    setStage('success');
   };
 
   if (totalQuantity === 0) {
@@ -53,10 +69,10 @@ function CheckoutPage() {
           </div>
         ) : (
           <div className="payment-placeholder reveal">
-            <h2>Secure Checkout with Stripe Coming soon.</h2>
-            <p>Thanks for submitting your shipping information.</p>
-            <button type="button" className="btn btn-secondary" onClick={() => setStage('form')}>
-              Back to Checkout Form
+            <h2>Preorder Submitted Successfully!</h2>
+            <p>You will receive an order invoice via email once the product is in stock.</p>
+            <button type="button" className="btn btn-primary" onClick={() => window.location.href = '/'}>
+              Return to Home
             </button>
           </div>
         )}

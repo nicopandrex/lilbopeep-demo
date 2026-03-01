@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProductPage from './pages/ProductPage.jsx';
+import OurStoryPage from './pages/OurStoryPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
 
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/our-story" element={<OurStoryPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
