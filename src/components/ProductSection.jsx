@@ -164,8 +164,15 @@ function ProductSection({ showIntro = false, id }) {
           </div>
 
           <div className="product-content">
-            <h2>The Lilbo Peepsite</h2>
-            <p className="price">$54.95</p>
+            <div className="product-header">
+              <div>
+                <h2>The Lilbo Peepsite</h2>
+                <p className="price">$54.95</p>
+              </div>
+              <div className="made-in-usa-product-badge">
+                ★ Made in the USA ★
+              </div>
+            </div>
             <p className="shipping-note">Shipping cost calculated at checkout</p>
             <h3 className="feature-heading">Why Archers Choose The Lilbo Peepsite</h3>
             <div className="feature-list">

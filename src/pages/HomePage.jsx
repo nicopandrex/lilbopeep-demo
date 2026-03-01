@@ -65,6 +65,9 @@ function HomePage() {
             />
           ))}
           <div className="hero-overlay" />
+          <div className="made-in-usa-badge">
+            <span className="badge-text">★ Made in the USA ★</span>
+          </div>
           <div className="container hero-content">
             <div>
               <p className="eyebrow">Precision Archery Gear</p>

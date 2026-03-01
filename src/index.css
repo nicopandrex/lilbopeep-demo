@@ -497,6 +497,25 @@ textarea:focus-visible {
   );
 }
 
+.made-in-usa-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+.made-in-usa-badge .badge-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a2a1a;
+  letter-spacing: 0.02em;
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
@@ -703,6 +722,26 @@ textarea:focus-visible {
 .product-content h2 {
   margin: 0;
   font-size: 1.8rem;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.made-in-usa-product-badge {
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #1f4ea8 0%, #2a5bb8 100%);
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(31, 78, 168, 0.3);
 }
 
 .price {
