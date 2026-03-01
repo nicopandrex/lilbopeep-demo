@@ -15,12 +15,12 @@ const credibilityItems = [
     description: 'A cleaner sight picture through the full shot sequence.',
   },
   {
-    title: 'No Serving Sequired',
+    title: 'No Serving Required',
     description: 'Simple setup design that stays put without serving work.',
   },
   {
-    title: 'Great in Low Light',
-    description: 'Maintains a clear aiming reference in challenging light.',
+    title: 'Best In Low Light Conditions',
+    description: 'No more second guessing your target at the moment of truth.',
   },
 ];
 
@@ -93,8 +93,8 @@ function HomePage() {
       </section>
 
       <ProductSection id="product-section" />
-      <HowItWorks />
       <Testimonials />
+      <HowItWorks />
 
       <section className="section cta-band">
         <div className="container cta-band__content reveal">

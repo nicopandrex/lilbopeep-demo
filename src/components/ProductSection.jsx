@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useCart } from '../context/useCart.jsx';
 import HandednessSelector from './HandednessSelector.jsx';
-import QuantityStepper from './QuantityStepper.jsx';
 import image11 from '../assets/11-1.jpg';
 import imageAbout1 from '../assets/about1.jpg';
 import imageAbout2 from '../assets/about2.jpg';
@@ -22,7 +21,7 @@ const features = [
     description: 'Will not creep. Period.',
   },
   {
-    title: 'Low-Light Performance',
+    title: 'Best in Low Light Conditions',
     description: 'Unmatched in low light conditions.',
   },
   {
@@ -42,7 +41,7 @@ const productImages = [
 ];
 
 function ProductSection({ showIntro = false, id }) {
-  const { cart, setHandedness, setQuantity } = useCart();
+  const { cart, setLeftQuantity, setRightQuantity } = useCart();
   const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(productImages[0]);
 
@@ -96,8 +95,12 @@ function ProductSection({ showIntro = false, id }) {
             </div>
 
             <div className="product-options">
-              <HandednessSelector value={cart.handedness} onChange={setHandedness} />
-              <QuantityStepper value={cart.quantity} onChange={setQuantity} />
+              <HandednessSelector 
+                leftValue={cart.leftQuantity} 
+                rightValue={cart.rightQuantity}
+                onLeftChange={setLeftQuantity}
+                onRightChange={setRightQuantity}
+              />
             </div>
 
             <div className="button-row">

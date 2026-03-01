@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { CartContext } from './cart-context.js';
 
-const STORAGE_KEY = 'lilbo-cart-v1';
+const STORAGE_KEY = 'lilbo-cart-v2';
 
 const defaultCart = {
-  handedness: 'Right-handed',
-  quantity: 1,
+  leftQuantity: 0,
+  rightQuantity: 1,
 };
 
 export function CartProvider({ children }) {
@@ -15,11 +15,12 @@ export function CartProvider({ children }) {
       if (!raw) return defaultCart;
       const parsed = JSON.parse(raw);
       return {
-        handedness:
-          parsed.handedness === 'Left-handed' ? 'Left-handed' : 'Right-handed',
-        quantity: Number.isInteger(parsed.quantity)
-          ? Math.min(99, Math.max(1, parsed.quantity))
-          : 1,
+        leftQuantity: Number.isInteger(parsed.leftQuantity)
+          ? Math.min(99, Math.max(0, parsed.leftQuantity))
+          : 0,
+        rightQuantity: Number.isInteger(parsed.rightQuantity)
+          ? Math.min(99, Math.max(0, parsed.rightQuantity))
+          : 0,
       };
     } catch {
       return defaultCart;
@@ -33,9 +34,10 @@ export function CartProvider({ children }) {
   const value = useMemo(
     () => ({
       cart,
-      setHandedness: (handedness) => setCart((prev) => ({ ...prev, handedness })),
-      setQuantity: (quantity) =>
-        setCart((prev) => ({ ...prev, quantity: Math.min(99, Math.max(1, quantity)) })),
+      setLeftQuantity: (quantity) =>
+        setCart((prev) => ({ ...prev, leftQuantity: Math.min(99, Math.max(0, quantity)) })),
+      setRightQuantity: (quantity) =>
+        setCart((prev) => ({ ...prev, rightQuantity: Math.min(99, Math.max(0, quantity)) })),
     }),
     [cart],
   );

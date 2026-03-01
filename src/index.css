@@ -560,8 +560,9 @@ textarea:focus-visible {
 }
 
 .quantity-stepper {
-  display: inline-grid;
+  display: grid;
   grid-template-columns: 44px 70px 44px;
+  width: fit-content;
   border: 1px solid var(--line);
   border-radius: 9px;
   overflow: hidden;
@@ -595,6 +596,23 @@ textarea:focus-visible {
   font-weight: 500;
 }
 
+.handedness-quantities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.handedness-quantity-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.handedness-quantity-item label {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
 .steps-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -625,12 +643,14 @@ textarea:focus-visible {
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  gap: clamp(2rem, 4vw, 4rem);
+  margin-top: 3rem;
+  padding: 0 1rem;
 }
 
 .testimonial-card {
   margin: 0;
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 .testimonial-card p {
@@ -640,6 +660,35 @@ textarea:focus-visible {
 .testimonial-card cite {
   color: var(--muted);
   font-style: normal;
+}
+
+.highlight-quote {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  border-left: 3px solid var(--primary);
+  padding-left: 1.5rem;
+}
+
+.highlight-text {
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.5;
+  margin: 0 0 1.25rem;
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
+}
+
+.highlight-attribution {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 400;
+  margin-top: 0.5rem;
 }
 
 .cta-band {
@@ -709,19 +758,45 @@ textarea:focus-visible {
   margin-top: 0;
 }
 
+.checkout-form button[type="submit"] {
+  margin-top: 1.5rem;
+}
+
 .summary-row {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
   margin: 0.6rem 0;
+  padding: 0.4rem 0;
   color: var(--muted);
 }
 
-.summary-total {
+.summary-row span:first-child {
+  font-weight: 500;
+}
+
+.summary-row span:last-child {
+  color: var(--text);
+}
+
+.summary-subtotal {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid var(--line);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--line);
   font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
 }
 
 .payment-placeholder pre {
@@ -842,6 +917,7 @@ textarea:focus-visible {
   .steps-grid,
   .testimonial-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 2rem;
   }
 
   .footer-grid {
@@ -861,7 +937,11 @@ textarea:focus-visible {
 
   .credibility-list,
   .steps-grid,
-  .testimonial-grid,
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -892,6 +972,10 @@ textarea:focus-visible {
   }
 
   .feature-list {
+    grid-template-columns: 1fr;
+  }
+
+  .handedness-quantities {
     grid-template-columns: 1fr;
   }
 
