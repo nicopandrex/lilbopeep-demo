@@ -1281,6 +1281,27 @@ textarea:focus-visible {
   color: var(--muted);
 }
 
+.footer-patent {
+  font-weight: 600;
+  color: var(--text) !important;
+  margin-top: 0.5rem !important;
+}
+
+.footer-credit {
+  margin-top: 0.5rem !important;
+}
+
+.footer-credit a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-credit a:hover {
+  color: var(--primary);
+}
+
 .reveal {
   animation: fadeUp 0.55s ease both;
 }

@@ -38,6 +38,12 @@ function Footer() {
       </div>
       <div className="container footer-bottom">
         <p>&copy; {new Date().getFullYear()} The Lilbo Peepsite. All rights reserved.</p>
+        <p className="footer-patent">US Patent #8191544</p>
+        <p className="footer-credit">
+          <a href="https://chescowebworks.com/" target="_blank" rel="noopener noreferrer">
+            Web Design By ChesCo WebWorks
+          </a>
+        </p>
       </div>
     </footer>
   );
