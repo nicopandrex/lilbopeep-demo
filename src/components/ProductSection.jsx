@@ -225,8 +225,9 @@ function ProductSection({ showIntro = false, id }) {
                   onClick={() => navigate('/checkout')}
                   disabled={totalQuantity === 0}
                 >
-                  Preorder Now
+                  Reserve Your Order
                 </button>
+                <p className="payment-note">No payment required now. We'll send an invoice when the product is ready.</p>
                 <button 
                   type="button" 
                   className="btn btn-secondary btn-block" 

@@ -4,10 +4,10 @@ function calculateShipping(state, totalQuantity) {
   if (!state) return null;
   
   const stateUpper = state.toUpperCase().trim();
-  const nonContinentalStates = ['AK', 'ALASKA', 'HI', 'HAWAII', 'PR', 'PUERTO RICO'];
+  const nonContinentalStates = ['AK', 'HI', 'PR'];
   
-  // Determine base shipping rate
-  const isNonContinental = nonContinentalStates.some(s => stateUpper.includes(s) || s.includes(stateUpper));
+  // Determine base shipping rate: $5 for continental US, $15 for AK, HI, PR
+  const isNonContinental = nonContinentalStates.includes(stateUpper);
   const baseRate = isNonContinental ? 15 : 5;
   
   // Double shipping for every 10 units
@@ -16,7 +16,7 @@ function calculateShipping(state, totalQuantity) {
   return baseRate * multiplier;
 }
 
-function OrderSummary({ leftQuantity, rightQuantity, state }) {
+function OrderSummary({ leftQuantity, rightQuantity, state, isLoadingShipping = false }) {
   const totalQuantity = leftQuantity + rightQuantity;
   const subtotal = BASE_PRICE * totalQuantity;
   const shipping = calculateShipping(state, totalQuantity);
@@ -51,11 +51,19 @@ function OrderSummary({ leftQuantity, rightQuantity, state }) {
       </div>
       <div className="summary-row">
         <span>Shipping</span>
-        <span>{shipping !== null ? `$${shipping.toFixed(2)}` : 'Enter state to calculate'}</span>
+        {isLoadingShipping ? (
+          <span className="skeleton-loader"></span>
+        ) : (
+          <span>{shipping !== null ? `$${shipping.toFixed(2)}` : 'Select state to calculate'}</span>
+        )}
       </div>
       <div className="summary-total">
         <span>Total</span>
-        <span>{total !== null ? `$${total.toFixed(2)}` : `$${subtotal.toFixed(2)} + Shipping`}</span>
+        {isLoadingShipping ? (
+          <span className="skeleton-loader"></span>
+        ) : (
+          <span>{total !== null ? `$${total.toFixed(2)}` : `$${subtotal.toFixed(2)} + Shipping`}</span>
+        )}
       </div>
     </aside>
   );

@@ -40,7 +40,7 @@ function Navbar() {
           </ul>
         </nav>
         <Link to="/checkout" className="btn btn-primary nav-cta">
-          Order Now
+          Reserve Your Order
         </Link>
       </div>
     </header>
