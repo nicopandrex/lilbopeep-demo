@@ -6,10 +6,12 @@ import StockNotificationForm from './StockNotificationForm.jsx';
 import peep1003 from '../assets/Peep Final/Peep-1003.jpg';
 import peep1004 from '../assets/Peep Final/Peep-1004.jpg';
 import peep1005 from '../assets/Peep Final/Peep-1005.jpg';
-import peep1006 from '../assets/Peep Final/Peep-1006.jpg';
-import peep1007 from '../assets/Peep Final/Peep-1007.jpg';
-import peep1008 from '../assets/Peep Final/Peep-1008.jpg';
-import peep1009 from '../assets/Peep Final/Peep-1009.jpg';
+import dp97397 from '../assets/_DP97397.jpg';
+import dp97397s from '../assets/_DP97397S.jpg';
+import dp97387 from '../assets/_DP97387.jpg';
+import dp97387s from '../assets/_DP97387S.jpg';
+import dp97409 from '../assets/_DP97409.jpg';
+import dp97409s from '../assets/_DP97409S.jpg';
 
 const features = [
   {
@@ -40,13 +42,15 @@ const features = [
 ];
 
 const productImages = [
-  { src: peep1007, name: 'peep-1007', alt: 'The Lilbo Peepsite - alternate angle' },
-  { src: peep1006, name: 'peep-1006', alt: 'The Lilbo Peepsite titanium construction - side view' },
+  { src: dp97397, name: 'dp97397', alt: 'The Lilbo Peepsite - product view' },
+  { src: dp97397s, name: 'dp97397s', alt: 'The Lilbo Peepsite - alternate view' },
+  { src: dp97387, name: 'dp97387', alt: 'The Lilbo Peepsite - detail view' },
+  { src: dp97387s, name: 'dp97387s', alt: 'The Lilbo Peepsite - detail alternate view' },
   { src: peep1003, name: 'peep-1003', alt: 'The Lilbo Peepsite with alignment tool on bowstring' },
   { src: peep1004, name: 'peep-1004', alt: 'The Lilbo Peepsite alignment tool detail' },
   { src: peep1005, name: 'peep-1005', alt: 'The Lilbo Peepsite installation view' },
-  { src: peep1008, name: 'peep-1008', alt: 'The Lilbo Peepsite on bowstring - angle view' },
-  { src: peep1009, name: 'peep-1009', alt: 'The Lilbo Peepsite close-up detail' },
+  { src: dp97409, name: 'dp97409', alt: 'The Lilbo Peepsite - installation angle' },
+  { src: dp97409s, name: 'dp97409s', alt: 'The Lilbo Peepsite - close-up detail' },
 ];
 
 function ProductSection({ showIntro = false, id }) {

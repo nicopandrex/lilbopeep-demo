@@ -1,19 +1,19 @@
 const steps = [
   {
-    title: 'Find Your Anchor Point',
-    description: 'Draw your bow with eyes closed and anchor naturally. Open your eyes and mark where your eye centers on the string.',
+    title: 'Mark Your Anchor Point',
+    description: 'Draw your bow back with eyes closed. At full draw with your anchor at the corner of your mouth, open your eyes. Have someone mark where your eye meets the string with a white paint marker - this aligns with point "A" on the peepsite.',
   },
   {
-    title: 'Press and Position',
-    description: 'Place the bow in a press to relieve tension. Slide the Lilbo Peep around both sides of the string with the cutout facing your dominant eye.',
+    title: 'Prepare the Bowstring',
+    description: 'Use a bow press to loosen the string enough to create a small loop. Determine your hand preference: right hand installs slot to left, left hand installs slot to right.',
   },
   {
-    title: 'Thread the Alignment Tube',
-    description: 'Run the alignment tubing through the designated hole in the peep.',
+    title: 'Install the Peepsite',
+    description: 'Align the marked spot with "A" on the peepsite. Feed the bowstring into the channel, working from one end to the other until all strands are neatly tucked. Pull tight, double-check alignment, then slowly re-tighten and remove from press.',
   },
   {
-    title: 'Test and Fine-Tune',
-    description: 'Remove the bow from the press and test your sight picture. If needed, return to the press for micro-adjustments.',
+    title: 'Add Alignment Tubing',
+    description: 'Tie a half hitch 1" from the tubing end. Thread through the top alignment loop, then tie the other end to a bow cable with a square knot. The peep should sit perpendicular to the string at full draw. Test and adjust as needed.',
   },
 ];
 
@@ -28,11 +28,17 @@ function HowItWorks() {
         </div>
         
         <div className="reveal" style={{ maxWidth: '800px', margin: '0 auto 3rem', background: 'var(--surface)', border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: '3rem 2rem', textAlign: 'center' }}>
-          <div style={{ aspectRatio: '16/9', background: 'var(--surface-alt)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed var(--line)' }}>
-            <div>
-              <p style={{ margin: 0, fontSize: '1.2rem', fontWeight: 600, color: 'var(--muted)' }}>Video Installation Guide</p>
-              <p style={{ margin: '0.5rem 0 0', fontSize: '0.9rem', color: 'var(--muted)' }}>Coming Soon</p>
-            </div>
+          <div style={{ aspectRatio: '16/9', background: 'var(--surface-alt)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/ntL7FpI4kSA"
+              title="Lilbo Peepsite Installation Guide"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ display: 'block' }}
+            />
           </div>
         </div>
 
