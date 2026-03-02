@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { IoClose } from 'react-icons/io5';
 
 const BANNER_KEY = 'lilbo-banner-hidden-until';
 const HIDE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -58,7 +59,7 @@ function SiteBanner() {
         aria-label="Dismiss site notice for 7 days"
         onClick={dismiss}
       >
-        X
+        <IoClose />
       </button>
     </div>
   );

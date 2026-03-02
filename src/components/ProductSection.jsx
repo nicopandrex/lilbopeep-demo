@@ -74,15 +74,33 @@ function ProductSection({ showIntro = false, id }) {
 
   const totalQuantity = cart.leftQuantity + cart.rightQuantity;
   const visibleThumbs = productImages.slice(thumbStartIndex, thumbStartIndex + thumbsPerPage);
-  const canScrollLeft = thumbStartIndex > 0;
-  const canScrollRight = thumbStartIndex + thumbsPerPage < productImages.length;
+  
+  const currentImageIndex = productImages.findIndex(img => img.name === activeImage.name);
+  const canScrollLeft = currentImageIndex > 0;
+  const canScrollRight = currentImageIndex < productImages.length - 1;
 
   const scrollThumbsLeft = () => {
-    setThumbStartIndex(prev => Math.max(0, prev - 1));
+    if (currentImageIndex > 0) {
+      const newImage = productImages[currentImageIndex - 1];
+      setActiveImage(newImage);
+      
+      // Update thumbnail window if needed to keep active image visible
+      if (currentImageIndex - 1 < thumbStartIndex) {
+        setThumbStartIndex(currentImageIndex - 1);
+      }
+    }
   };
 
   const scrollThumbsRight = () => {
-    setThumbStartIndex(prev => Math.min(productImages.length - thumbsPerPage, prev + 1));
+    if (currentImageIndex < productImages.length - 1) {
+      const newImage = productImages[currentImageIndex + 1];
+      setActiveImage(newImage);
+      
+      // Update thumbnail window if needed to keep active image visible
+      if (currentImageIndex + 1 >= thumbStartIndex + thumbsPerPage) {
+        setThumbStartIndex(currentImageIndex + 1 - thumbsPerPage + 1);
+      }
+    }
   };
 
   const handleNotificationSubmit = async (data) => {
