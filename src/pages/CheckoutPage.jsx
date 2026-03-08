@@ -23,7 +23,7 @@ function CheckoutPage() {
     }
   };
 
-  const handleSubmit = async (nextOrder) => {
+  const handleSubmit = async ({ form, data }) => {
     setSubmitError('');
     setIsSubmitting(true);
 
@@ -32,16 +32,21 @@ function CheckoutPage() {
         'https://api.chescowebworks.com/public/forms/c76c1249-aae0-48d6-8c4d-d06ebe144ef8/submit',
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(nextOrder),
+          headers: { Accept: 'application/json' },
+          body: data,
         },
       );
 
-      if (!response.ok) {
-        throw new Error('Failed to submit preorder');
+      if (response.ok) {
+        setStage('success');
+        form?.reset?.();
+      } else {
+        const result = await response.json().catch(() => null);
+        const message =
+          result?.errors?.[0]?.message ||
+          'There was an error submitting your preorder. Please try again.';
+        setSubmitError(message);
       }
-
-      setStage('success');
     } catch (error) {
       console.error('Error submitting preorder:', error);
       setSubmitError('There was an error submitting your preorder. Please try again.');

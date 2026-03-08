@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function StockNotificationForm({ isOpen, onClose, onSubmit }) {
+function StockNotificationForm({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,9 +28,34 @@ function StockNotificationForm({ isOpen, onClose, onSubmit }) {
     setIsSubmitting(true);
 
     try {
-      await onSubmit({ email });
-      setEmail('');
-      onClose();
+      const form = event.currentTarget;
+      const data = new FormData(form);
+
+      const gotcha = data.get('_gotcha');
+      if (gotcha) {
+        setIsSubmitting(false);
+        return;
+      }
+
+      const response = await fetch(
+        'https://api.chescowebworks.com/public/forms/97e245aa-526a-42ed-9a96-a8455320b360/submit',
+        {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: data,
+        },
+      );
+
+      if (response.ok) {
+        setEmail('');
+        form.reset();
+        onClose();
+      } else {
+        const result = await response.json().catch(() => null);
+        const message =
+          result?.errors?.[0]?.message || 'Failed to sign up. Please try again.';
+        setError(message);
+      }
     } catch (err) {
       console.error('Stock notification signup error:', err);
       setError('Failed to sign up. Please try again.');
@@ -50,6 +75,7 @@ function StockNotificationForm({ isOpen, onClose, onSubmit }) {
           <input
             type="email"
             placeholder="your.email@example.com"
+            name="email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);

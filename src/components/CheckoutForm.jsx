@@ -141,21 +141,22 @@ function CheckoutForm({ leftQuantity, rightQuantity, onSubmit, onStateChange, is
     const shippingCost = calculateShipping(formData.state, totalQuantity);
     const total = subtotal + shippingCost;
 
-    onSubmit({
-      product: {
-        name: 'The Lilbo Peepsite',
-        price: 54.95,
-        leftQuantity,
-        rightQuantity,
-        totalQuantity,
-        subtotal,
-        shippingCost,
-        total,
-      },
-      shipping: {
-        ...formData,
-      },
-    });
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    const gotcha = data.get('_gotcha');
+    if (gotcha) return;
+
+    data.set('product_name', 'The Lilbo Peepsite');
+    data.set('product_price', '54.95');
+    data.set('leftQuantity', String(leftQuantity));
+    data.set('rightQuantity', String(rightQuantity));
+    data.set('totalQuantity', String(totalQuantity));
+    data.set('subtotal', subtotal.toFixed(2));
+    data.set('shippingCost', shippingCost.toFixed(2));
+    data.set('total', total.toFixed(2));
+
+    onSubmit({ form, data });
   };
 
   const field = (name, label, { type = 'text', optional = false } = {}) => (

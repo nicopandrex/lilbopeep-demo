@@ -45,35 +45,41 @@ function ContactPage() {
     setIsSubmitting(true);
 
     try {
+      const form = event.currentTarget;
+      const data = new FormData(form);
+
+      const gotcha = data.get('_gotcha');
+      if (gotcha) {
+        setIsSubmitting(false);
+        return;
+      }
+
       const response = await fetch(
         'https://api.chescowebworks.com/public/forms/6fae2996-8fff-40e7-9109-88824158f81e/submit',
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message,
-          }),
+          headers: { Accept: 'application/json' },
+          body: data,
         },
       );
 
-      if (!response.ok) {
-        throw new Error('Failed to submit contact form');
+      if (response.ok) {
+        setSubmitted(true);
+        form.reset();
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        const result = await response.json().catch(() => null);
+        const message =
+          result?.errors?.[0]?.message ||
+          'There was an error submitting your message. Please try again.';
+        setSubmitError(message);
       }
-
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        subject: '',
-        message: '',
-      });
     } catch (error) {
       console.error('Contact form submission error:', error);
       setSubmitError('There was an error submitting your message. Please try again.');

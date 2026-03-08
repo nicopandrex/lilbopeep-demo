@@ -107,23 +107,6 @@ function ProductSection({ showIntro = false, id }) {
     }
   };
 
-  const handleNotificationSubmit = async (data) => {
-    const response = await fetch(
-      'https://api.chescowebworks.com/public/forms/97e245aa-526a-42ed-9a96-a8455320b360/submit',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to sign up for notifications');
-    }
-  };
-
   return (
     <section className="section" id={id}>
       <div className="container">
@@ -213,7 +196,6 @@ function ProductSection({ showIntro = false, id }) {
               <StockNotificationForm
                 isOpen={showNotificationForm}
                 onClose={() => setShowNotificationForm(false)}
-                onSubmit={handleNotificationSubmit}
               />
             ) : (
               <div className="button-stack">
