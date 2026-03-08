@@ -9,6 +9,8 @@ function CheckoutPage() {
   const [stage, setStage] = useState('form');
   const [shippingState, setShippingState] = useState('');
   const [isCalculatingShipping, setIsCalculatingShipping] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const totalQuantity = cart.leftQuantity + cart.rightQuantity;
 
   const handleStateChange = (state) => {
@@ -22,24 +24,30 @@ function CheckoutPage() {
   };
 
   const handleSubmit = async (nextOrder) => {
-    console.log('Checkout order payload:', nextOrder);
-    
-    // TODO: Replace with your actual API endpoint
-    // const API_ENDPOINT = '/api/preorder';
-    // try {
-    //   const response = await fetch(API_ENDPOINT, {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(nextOrder),
-    //   });
-    //   if (!response.ok) throw new Error('Failed to submit preorder');
-    // } catch (error) {
-    //   console.error('Error submitting preorder:', error);
-    //   alert('There was an error submitting your preorder. Please try again.');
-    //   return;
-    // }
-    
-    setStage('success');
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(
+        'https://api.chescowebworks.com/public/forms/c76c1249-aae0-48d6-8c4d-d06ebe144ef8/submit',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(nextOrder),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to submit preorder');
+      }
+
+      setStage('success');
+    } catch (error) {
+      console.error('Error submitting preorder:', error);
+      setSubmitError('There was an error submitting your preorder. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (totalQuantity === 0) {
@@ -72,6 +80,8 @@ function CheckoutPage() {
               rightQuantity={cart.rightQuantity}
               onSubmit={handleSubmit}
               onStateChange={handleStateChange}
+              isSubmitting={isSubmitting}
+              submitError={submitError}
             />
             <div>
               <div className="checkout-quantity-section">

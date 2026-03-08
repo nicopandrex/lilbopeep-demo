@@ -10,6 +10,8 @@ function ContactPage() {
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
     const nextErrors = {};
@@ -32,21 +34,52 @@ function ContactPage() {
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
+    setSubmitError('');
 
     if (Object.keys(nextErrors).length > 0) return;
 
-    setSubmitted(true);
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(
+        'https://api.chescowebworks.com/public/forms/6fae2996-8fff-40e7-9109-88824158f81e/submit',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to submit contact form');
+      }
+
+      setSubmitted(true);
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmitError('There was an error submitting your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -101,9 +134,11 @@ function ContactPage() {
             {errors.message ? <p className="error-text">{errors.message}</p> : null}
           </div>
 
-          <button type="submit" className="btn btn-primary">
-            Send Message
+          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+            {isSubmitting ? 'Sending...' : 'Send Message'}
           </button>
+
+          {submitError ? <p className="error-text">{submitError}</p> : null}
 
           {submitted ? (
             <p className="success-text">Thank you. Your message has been submitted.</p>

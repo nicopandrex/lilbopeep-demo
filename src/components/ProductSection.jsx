@@ -108,26 +108,20 @@ function ProductSection({ showIntro = false, id }) {
   };
 
   const handleNotificationSubmit = async (data) => {
-    // TODO: Replace this with your actual API endpoint
-    const API_ENDPOINT = '/api/stock-notification'; // Update with your API URL
-    
-    console.log('Submitting stock notification signup:', data);
-    
-    // Example API call structure - replace with your actual implementation
-    const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      'https://api.chescowebworks.com/public/forms/97e245aa-526a-42ed-9a96-a8455320b360/submit',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       },
-      body: JSON.stringify(data),
-    });
+    );
 
     if (!response.ok) {
       throw new Error('Failed to sign up for notifications');
     }
-
-    // Success
-    alert('Successfully signed up for stock notifications!');
   };
 
   return (

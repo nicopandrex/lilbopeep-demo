@@ -87,7 +87,7 @@ function calculateShipping(state, totalQuantity) {
   return baseRate * multiplier;
 }
 
-function CheckoutForm({ leftQuantity, rightQuantity, onSubmit, onStateChange }) {
+function CheckoutForm({ leftQuantity, rightQuantity, onSubmit, onStateChange, isSubmitting = false, submitError = '' }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -238,9 +238,10 @@ function CheckoutForm({ leftQuantity, rightQuantity, onSubmit, onStateChange }) 
           ) : null}
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">
-        Place Pre-Order Request
+      <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Place Pre-Order Request'}
       </button>
+      {submitError ? <p className="error-text">{submitError}</p> : null}
     </form>
   );
 }
